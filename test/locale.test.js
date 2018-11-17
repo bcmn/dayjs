@@ -1,6 +1,7 @@
 import MockDate from 'mockdate'
 import dayjs from '../src'
 import es from '../src/locale/es'
+import fa from '../src/locale/fa' // eslint-disable-line no-unused-vars
 
 beforeEach(() => {
   MockDate.set(new Date())
@@ -11,6 +12,12 @@ afterEach(() => {
 })
 
 const format = 'dddd D, MMMM'
+
+it('Uses eastern arabic numerals for farsi locale', () => {
+  expect(dayjs('2018-4-28')
+    .locale('fa')
+    .format('D MMMM YYYY')).toBe('۲۸ آوریل ۲۰۱۸')
+})
 
 it('Uses spanish locale through constructor', () => { // not recommend
   expect(dayjs('2018-4-28', { locale: es })

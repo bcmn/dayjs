@@ -288,7 +288,7 @@ class Dayjs {
     const getShort = (arr, index, full, length) => (
       (arr && arr[index]) || full[index].substr(0, length)
     )
-    return str.replace(C.REGEX_FORMAT, (match) => {
+    const result = str.replace(C.REGEX_FORMAT, (match) => {
       if (match.indexOf('[') > -1) return match.replace(/\[|\]/g, '')
       switch (match) {
         case 'YY':
@@ -343,6 +343,33 @@ class Dayjs {
           return zoneStr.replace(':', '')
       }
     })
+
+    return result.split('').map((char) => {
+      switch (char) {
+        case '0':
+          return locale.numerals ? locale.numerals[0] : '0'
+        case '1':
+          return locale.numerals ? locale.numerals[1] : '1'
+        case '2':
+          return locale.numerals ? locale.numerals[2] : '2'
+        case '3':
+          return locale.numerals ? locale.numerals[3] : '3'
+        case '4':
+          return locale.numerals ? locale.numerals[4] : '4'
+        case '5':
+          return locale.numerals ? locale.numerals[5] : '5'
+        case '6':
+          return locale.numerals ? locale.numerals[6] : '6'
+        case '7':
+          return locale.numerals ? locale.numerals[7] : '7'
+        case '8':
+          return locale.numerals ? locale.numerals[8] : '8'
+        case '9':
+          return locale.numerals ? locale.numerals[9] : '9'
+        default:
+          return char
+      }
+    }).join('')
   }
 
   diff(input, units, float) {
